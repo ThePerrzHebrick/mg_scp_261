@@ -19,6 +19,3 @@ function ENT:Use( ply, caller )
     ply:EmitSound("scp294/ahh.ogg")
     self:Remove()
 end
-
-
-
