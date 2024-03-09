@@ -61,5 +61,3 @@ function MG_SCP261.randomEatSpawn()
 end
 
 net.Receive("MG_SCP261_AskEntity", MG_SCP261.randomEatSpawn)
-
-
