@@ -25,13 +25,6 @@ function ENT:Initialize()
     end
 end
 
-function ENT:Use( ply, caller )
-    net.Start("MG_SCP261_AskEntity")
-        net.WriteEntity(ply)
-        net.WriteEntity(self)
-    net.Send(ply)
-end
-
 function ENT:Use(ply, caller)
     local curTime = CurTime()
     local cooldownTime = MG_SCP261.lastUseTime[self] or 0
