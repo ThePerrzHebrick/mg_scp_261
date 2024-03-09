@@ -18,6 +18,3 @@ function ENT:Use( ply, caller )
     DarkRP.notify(ply, 0, 4, "Schmeckt sehr lecker und sehr käsig !")
     self:Remove()
 end
-
-
-
