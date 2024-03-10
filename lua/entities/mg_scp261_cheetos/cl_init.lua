@@ -14,7 +14,7 @@ function ENT:Draw()
                 font = "MG_SCP261_Cheetos",
                 offset = -40
             },
-	},
+		},
         pos_add = self:GetAngles():Right() * -1,
         hovermult = 1,
     })

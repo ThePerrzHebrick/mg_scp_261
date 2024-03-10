@@ -14,21 +14,9 @@ function ENT:Draw()
                 font = "MG_SCP261",
                 offset = -250
             },
-	},
+		},
         pos_add = self:GetAngles():Right() * -1,
         hovermult = 1,
     })
     self:DrawModel()
 end
-
-local function SendAnswer()
-    local ply = net.ReadEntity()
-    local ent = net.ReadEntity()
-    if !IsValid(ent) then return end
-    net.Start("MG_SCP261_AskEntity")
-        net.WriteEntity(ent)
-        net.WriteEntity(ply)
-    net.SendToServer()
-end
-
-net.Receive("MG_SCP261_AskEntity", SendAnswer)

@@ -14,7 +14,7 @@ function ENT:Draw()
                 font = "MG_SCP261_Pepsi",
                 offset = -150
             },
-	},
+		},
         pos_add = self:GetAngles():Right() * 2,
         hovermult = 1,
     })
