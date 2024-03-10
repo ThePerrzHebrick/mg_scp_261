@@ -4,7 +4,6 @@ include('shared.lua')
 
 MG_SCP261 = {}
 
-MG_SCP261.scp261EntityList = {}
 MG_SCP261.entityList = {
     {"Cheetos", "mg_scp261_cheetos", 1},
     {"Coke", "mg_scp261_coke", 2},
