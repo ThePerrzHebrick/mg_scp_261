@@ -2,7 +2,7 @@ AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" ) 
 include('shared.lua')
 
-MG_SCP261 = {}
+MG_SCP261 = MG_SCP261 || {} -- Reload protection
 
 MG_SCP261.entityList = {
     {"Cheetos", "mg_scp261_cheetos", 1},
@@ -20,23 +20,32 @@ function ENT:Initialize()
     if (phys:IsValid()) then
         phys:Wake()
     end
+    self.cooldown = CurTime()
 end
 
 function ENT:Use(ply, caller)
-    if (self.Cooldown == false) then
-        local randomInt = math.random(1, #MG_SCP261.entityList)
-        local ent = self
-        local entA = ent:GetAngles()
-        local pos = ent:GetPos() + entA:Right() * 9 + entA:Up() * 32 + entA:Forward() * 13
-        local object = ents.Create(MG_SCP261.entityList[randomInt][2])
-        ply:EmitSound("scp294/dispense2.ogg")
-        self.Cooldown = true;
-        timer.Simple(10, function()
+    if self.cooldown > CurTime() then
+        DarkRP.notify(ply, 0, 3, "Der Automat ist gerade in Benutzung!") -- Would spam massively but im too lazy to add a cooldown to the message
+        return false
+    end
+
+    self.cooldown = CurTime() + 10
+
+    local tbl = MG_SCP261.entityList
+    local item = tbl[math.random(1, #tbl)]
+    if !item then return false end -- Item invalid
+    local ang = self:GetAngles()
+    local pos = self:GetPos() + ang:Right() * 9 + ang:Up() * 32 + ang:Forward() * 13
+
+    local object = ents.Create(item[2])
+    if object && IsValid(object) then
+        self:EmitSound("scp294/dispense2.ogg") -- Emit sound on entity, not player
+    end
+
+    timer.Simple(10, function() -- Are 10 seconds neccessary?
+        if object && IsValid(object) then -- IMPORTANT: Check if entity is still valid!
             object:SetPos(pos)
             object:Spawn()
-            self.Cooldown = false;
-        end)
-    else
-        DarkRP.notify(ply, 0, 3, "Der Automat ist gerade in Benutzung!")
-    end
+        end
+    end)
 end
